@@ -1,15 +1,51 @@
 #include <stdio.h>
+#include <string.h>
+#define N 5
+
+struct student {
+    int   rollno;
+    char  name[20];
+    char  department[40];
+    int   year_of_joining;
+    float score;
+};
+
+void sortByName(struct student s[], int n) {
+    struct student temp;
+    int i, j;
+    for (i = 0; i < n - 1; i++)
+        for (j = 0; j < n - 1 - i; j++)
+            if (strcmp(s[j].name, s[j+1].name) > 0) {
+                temp   = s[j];
+                s[j]   = s[j+1];
+                s[j+1] = temp;
+            }
+}
+
+void displayAll(struct student s[], int n) {
+    int i;
+    printf("\n%-5s %-20s %-10s\n", "Roll", "Name", "Score");
+    printf("--------------------------------------\n");
+    for (i = 0; i < n; i++)
+        printf("%-5d %-20s %-10.2f\n",
+               s[i].rollno, s[i].name, s[i].score);
+}
+
 int main() {
-    int n, i, max, min;
-    printf("Enter number of elements: ");
-    scanf("%d", &n);
-    int arr[n];
-    for (i = 0; i < n; i++) scanf("%d", &arr[i]);
-    max = min = arr[0];
-    for (i = 1; i < n; i++) {
-        if (arr[i] > max) max = arr[i];
-        if (arr[i] < min) min = arr[i];
-    }
-    printf("Max: %d\nMin: %d\n", max, min);
+    struct student s[N] = {
+        {3, "Zeynep",  "CSE", 2022, 78.5},
+        {1, "Arjun",   "ECE", 2021, 91.0},
+        {5, "Meera",   "IT",  2023, 65.0},
+        {2, "Bhavesh", "CSE", 2020, 83.5},
+        {4, "Priya",   "ME",  2022, 72.0}
+    };
+
+    printf("Before sort:");
+    displayAll(s, N);
+
+    sortByName(s, N);
+
+    printf("\nAfter sort (A to Z):");
+    displayAll(s, N);
     return 0;
 }

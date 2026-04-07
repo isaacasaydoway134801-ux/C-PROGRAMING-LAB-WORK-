@@ -1,15 +1,38 @@
 #include <stdio.h>
+
+struct complex {
+    float real;
+    float imag;
+};
+
+struct complex addComplex(struct complex a, struct complex b) {
+    struct complex result;
+    result.real = a.real + b.real;
+    result.imag = a.imag + b.imag;
+    return result;
+}
+
+void printComplex(struct complex c) {
+    if (c.imag >= 0)
+        printf("%.2f + %.2fi\n", c.real, c.imag);
+    else
+        printf("%.2f - %.2fi\n", c.real, -c.imag);
+}
+
 int main() {
-    int m, n, i;
-    printf("Size of first array: "); scanf("%d", &m);
-    int a[m];
-    for (i = 0; i < m; i++) scanf("%d", &a[i]);
-    printf("Size of second array: "); scanf("%d", &n);
-    int b[n], merged[m + n];
-    for (i = 0; i < n; i++) scanf("%d", &b[i]);
-    for (i = 0; i < m; i++) merged[i] = a[i];
-    for (i = 0; i < n; i++) merged[m + i] = b[i];
-    printf("Merged: ");
-    for (i = 0; i < m + n; i++) printf("%d ", merged[i]);
+    struct complex c1, c2, sum;
+
+    printf("Enter real and imaginary of C1: ");
+    scanf("%f %f", &c1.real, &c1.imag);
+
+    printf("Enter real and imaginary of C2: ");
+    scanf("%f %f", &c2.real, &c2.imag);
+
+    sum = addComplex(c1, c2);
+
+    printf("\nC1  = "); printComplex(c1);
+    printf("C2  = "); printComplex(c2);
+    printf("Sum = "); printComplex(sum);
+
     return 0;
 }
